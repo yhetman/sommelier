@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 
 def read_data(fpath):
     try:
-        df = pd.read_csv(fpath)
+        df = pd.DataFrame(pd.read_csv(fpath, sep = ';'))
     except FileNotFoundError:
         print('Double check the file path')
     return df
@@ -27,13 +27,24 @@ def plot_scatter_matrix(df_wine, good_wines, bad_wines, save_plot=False):
         ax.yaxis.set_visible(False)
     for i, title in enumerate(df_wine.columns):
         axes[i, i].annotate(title, (0.5, 0.5), xycoords = 'axes fraction', va = 'center', ha = 'center')
+    for i in range(feats):
+        for j in range(i + 1, feats):
+            axes[i, j].scatter(good_wines.iloc[:, j], good_wines.iloc[:, i], c = 'blue', marker = '.')
+            axes[j, i].scatter(good_wines.iloc[:, i], good_wines.iloc[:, j], c = 'blue', marker = '.')
+            axes[i, j].scatter(bad_wines.iloc[:, j], bad_wines.iloc[:, i], c = 'red', marker = '.')
+            axes[j, i].scatter(bad_wines.iloc[:, i], bad_wines.iloc[:, j], c = 'red', marker = '.')
+    if save_plot :
+        plt.savefig('wine-quality-scatter-matrix.png')
+    return figure
 
 
 def main():
     wine_data = read_data("../data/winequality-red.csv")
+    print(wine_data.head())
     good_wines, bad_wines = check_quality(wine_data)
-    plot_scatter_matrix(wine_data, good_wines, bad_wines, True)
+    f = plot_scatter_matrix(wine_data, good_wines, bad_wines, False)
+    plt.show(f)
 
 
-if __name__ = "__main__":
+if __name__ == "__main__":
     main()
