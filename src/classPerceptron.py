@@ -21,7 +21,7 @@ class Perceptron(Model):
             upd = self.lr * (y - self.prediction(x))
             self.weights[0] += upd
             self.weights[1:] += upd * x
-            erroe += int(upd != 0.0)
+            error += int(upd != 0.0)
         if epoch % 10 == 0 and verbose:
             print('Epoch %d : %d errors' % (epoch, error))
         self.performance.append((epoch, error, self.weights[1:], self.weights[0]))

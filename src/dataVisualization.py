@@ -3,12 +3,14 @@ import csv
 import pandas as pd
 import matplotlib.pyplot as plt
 
+
 def read_data(fpath):
     try:
         df = pd.DataFrame(pd.read_csv(fpath, sep = ';'))
     except FileNotFoundError:
         print('Double check the file path')
     return df
+
 
 def check_quality(df):
     good_treshold = 7
