@@ -1,5 +1,3 @@
-#import matplotlib.image as img
-#import matplotlib.animation as anima
 from dataVisualization import check_quality
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -70,8 +68,8 @@ def draw_scatter(ax, data, features, good_thresh, bad_thresh):
 
     
 def plot_performance(performance, data, features, good_thresh, bad_thresh,
-                     epoch=-1, save_plot=False, save_name='../images/train_stats.png'):
-    figure, axes = plt.subplots(nrows=1, ncols=2, figsize=(15,5))
+                     epoch=-1, save_plot=False, save_name='../images/performance-plot.png'):
+    figure, axes = plt.subplots(nrows=1, ncols=2, figsize=(40, 20))
     if epoch > len(performance) - 1:
         raise ValueError('number of epochs should be less than %d' % (len(performance)))
     if len(features) != 2:

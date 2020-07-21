@@ -1,16 +1,7 @@
 from classModel import Model
 import numpy as np
 
-
-#def dot(a, b):
-#    result = 0
-#    for i in range(len(a)):
-#        result += a[i] * b[i]
-#    return result
-
-
 class Perceptron(Model):
-
 
     def __init__(self, lr):
         self.lr = lr

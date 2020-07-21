@@ -1,11 +1,10 @@
 from  dataVisualization import read_data
 import pandas as pd
-import numpy as np
-from classModel import Model
 from classPerceptron import Perceptron
-from fittingVisualization import plot_performance
+from plotVisualization import plot_performance
 import matplotlib.pyplot as plt
-
+import matplotlib.animation as anima
+from dataAnimation import save_animation
 
 def dataCleaning(data):
     data = data.assign(highQ = pd.Series(data['quality'] > 5))
@@ -25,9 +24,8 @@ def main():
     for row in training_statistics:
         print(row)
     accuracy = model.evaluation(X.values, Y)
-    figure = plot_performance(training_statistics, samples, ['alcohol', 'volatile acidity'], 7, 4, -1, False)
-    plt.show(figure)
-    
+    save_animation(training_statistics, samples, ['alcohol', 'volatile acidity'], 7, 4)
+
 
 if __name__ == "__main__":
     main()
