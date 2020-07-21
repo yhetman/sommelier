@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 
 
 def save_animation(performance, data, features, good_thresh, bad_thresh,
-        name='../images/performance_animation.mp4'):
+        name='../images/performance_animation.gif'):
     frames = []
     figure = plt.figure(figsize=(40,20), dpi=150)
     ax = plt.gca()
@@ -20,6 +20,8 @@ def save_animation(performance, data, features, good_thresh, bad_thresh,
         print("Frame %d" %(i))
         frame = plt.imshow(image, animated=True)
         frames.append([frame])
+        #if image != None :
+        image = 0
     animation = anima.ArtistAnimation(figure, frames, interval=120, blit=True, repeat_delay=1000)
     animation.save(name)
     print('| DONE | Animation created and saved as %s' %(name))

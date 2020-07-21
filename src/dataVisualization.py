@@ -15,12 +15,9 @@ def read_data(fpath):
 def check_quality(df):
     good_treshold = 7
     bad_treshold = 4
-    print('OK')
     g_wines = df[(df['quality'] > good_treshold)]
     b_wines = df[(df['quality'] < bad_treshold)]
-    print('Quality checked')
     return g_wines, b_wines
-
 
 def plot_scatter_matrix(df_wine, good_wines, bad_wines, save_plot=False):
     samples, feats = df_wine.shape

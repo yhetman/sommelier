@@ -19,8 +19,8 @@ def dataCleaning(data):
 def main():
     data = read_data('../data/winequality-red.csv')
     X, Y, samples = dataCleaning(data)
-    model = Perceptron(lr = 0.001)
-    training_statistics = model.fit(X.values, Y, epochs = 5001, verbose = True, seed = 29)
+    model = Perceptron(lr = 0.005)
+    training_statistics = model.fit(X.values, Y, epochs = 1000, verbose = True, seed = 29)
     for row in training_statistics:
         print(row)
     accuracy = model.evaluation(X.values, Y)
