@@ -41,7 +41,7 @@ def plot_scatter_matrix(df_wine, good_wines, bad_wines, save_plot=False):
             axes[j, i].scatter(bad_wines.iloc[:, i], bad_wines.iloc[:, j], c = 'red', marker = '.')
     print('markers created')
     if save_plot :
-        plt.savefig('wine-quality-scatter-matrix.png')
+        plt.savefig('../images/wine-quality-scatter-matrix.png')
     return figure
 
 
@@ -49,8 +49,8 @@ def main():
     wine_data = read_data("../data/winequality-red.csv")
     print(wine_data.head())
     good_wines, bad_wines = check_quality(wine_data)
-    f = plot_scatter_matrix(wine_data, good_wines, bad_wines, False)
-    #plt.show(f)
+    f = plot_scatter_matrix(wine_data, good_wines, bad_wines, True)
+    plt.show(f)
 
 
 if __name__ == "__main__":
