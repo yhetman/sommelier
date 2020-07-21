@@ -49,8 +49,8 @@ def main():
     wine_data = read_data("../data/winequality-red.csv")
     print(wine_data.head())
     good_wines, bad_wines = check_quality(wine_data)
-    f = plot_scatter_matrix(wine_data, good_wines, bad_wines, True)
-    plt.show(f)
+    f = plot_scatter_matrix(wine_data, good_wines, bad_wines, False)
+    #plt.show(f)
 
 
 if __name__ == "__main__":
