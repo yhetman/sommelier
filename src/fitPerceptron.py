@@ -21,10 +21,14 @@ def main():
     X, Y, samples = dataCleaning(data)
     model = Perceptron(lr = 0.005)
     training_statistics = model.fit(X.values, Y, epochs = 1000, verbose = True, seed = 29)
+    print("|length og statistics| %d |" % (len(training_statistics)))
+    i = 0
     for row in training_statistics:
-        print(row)
-    accuracy = model.evaluation(X.values, Y)
+        i += 1
+        print("|%d|" %(i), row)
+    plot_performance(training_statistics, samples, ['alcohol', 'volatile acidity'], 7, 4, 999, True)
     save_animation(training_statistics, samples, ['alcohol', 'volatile acidity'], 7, 4)
+   # accuracy = model.evaluation(X.values, Y)
 
 
 if __name__ == "__main__":

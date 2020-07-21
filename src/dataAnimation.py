@@ -1,28 +1,24 @@
-import matplotlib.image as img
-import matplotlib.animation as anima
+import matplotlib.image as plimg
+from matplotlib.animation import ArtistAnimation, PilloWriter
 import os
 from plotVisualization import plot_performance, array_init
 import matplotlib.pyplot as plt
 
 
-def save_animation(performance, data, features, good_thresh, bad_thresh,
-        name='../images/performance_animation.gif'):
+def save_animation(performance, data, features, good_thresh, bad_thresh):
     frames = []
-    figure = plt.figure(figsize=(40,20), dpi=150)
-    ax = plt.gca()
-    ax.xaxis.set_visible(False)
-    ax.yaxis.set_visible(False)
+    figure = plt.figure(figsize = (8, 5))
+    
     for i in range(len(performance)):
         plot = plot_performance(performance, data, features,
                 good_thresh, bad_thresh, i, save_plot=True)
-        image = img.imread('../images/performance-plot.png')
+        img = plimg.imread('../images/performance-plot.png')
         plt.axis('off')
-        print("Frame %d" %(i))
-        frame = plt.imshow(image, animated=True)
+        frame = plt.imshow(img, animated=True)
         frames.append([frame])
-        #if image != None :
-        image = 0
-    animation = anima.ArtistAnimation(figure, frames, interval=120, blit=True, repeat_delay=1000)
-    animation.save(name)
-    print('| DONE | Animation created and saved as %s' %(name))
+        print("Frame %d" %(i))
 
+    anim = ArtistAnimation(figure, frames, interval= 100, blit=True, repeat_delay=1000)
+    writergif = PillowWriter(fps=30)
+    anim.save('plot-animation.gif', writer=writergif)
+    print('| DONE | Animation created and saved! ')

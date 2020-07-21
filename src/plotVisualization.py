@@ -69,7 +69,7 @@ def draw_scatter(ax, data, features, good_thresh, bad_thresh):
     
 def plot_performance(performance, data, features, good_thresh, bad_thresh,
                      epoch=-1, save_plot=False, save_name='../images/performance-plot.png'):
-    figure, axes = plt.subplots(nrows=1, ncols=2, figsize=(40, 20))
+    figure, axes = plt.subplots(nrows=1, ncols=2, figsize=(8, 5))
     if epoch > len(performance) - 1:
         raise ValueError('number of epochs should be less than %d' % (len(performance)))
     if len(features) != 2:
@@ -81,5 +81,6 @@ def plot_performance(performance, data, features, good_thresh, bad_thresh,
     draw_scatter(axes[1], data, features, good_thresh, bad_thresh)
     if save_plot:
         plt.savefig(save_name)
+    plt.close(figure)
     return figure
 
