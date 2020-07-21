@@ -10,7 +10,7 @@ def dataCleaning(data):
     data = data.assign(highQ = pd.Series(data['quality'] > 5))
     features = ['quality', 'alcohol', 'highQ', 'volatile acidity']
     samples = data[(data['quality'] < 4) | (data['quality'] > 7)][features]
-    print(samples)
+    samples = samples.reset_index(drop=True)
     Y = samples['highQ'].values
     X = samples.loc[:,['alcohol', 'volatile acidity']]
     return X, Y, samples
@@ -21,13 +21,8 @@ def main():
     X, Y, samples = dataCleaning(data)
     model = Perceptron(lr = 0.005)
     training_statistics = model.fit(X.values, Y, epochs = 1000, verbose = True, seed = 29)
-    print("|length og statistics| %d |" % (len(training_statistics)))
-    i = 0
-    for row in training_statistics:
-        i += 1
-        print("|%d|" %(i), row)
-    plot_performance(training_statistics, samples, ['alcohol', 'volatile acidity'], 7, 4, 999, True)
-    save_animation(training_statistics, samples, ['alcohol', 'volatile acidity'], 7, 4)
+   # plot_performance(model.performance, samples, ['volatile acidity', 'alcohol'], 7, 4, 300, True)
+    save_animation(model.performance, samples, ['volatile acidity', 'alcohol'], 7 , 4 )
    # accuracy = model.evaluation(X.values, Y)
 
 

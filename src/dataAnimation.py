@@ -1,7 +1,7 @@
 import matplotlib.image as plimg
-from matplotlib.animation import ArtistAnimation, PilloWriter
+from matplotlib.animation import ArtistAnimation, PillowWriter
 import os
-from plotVisualization import plot_performance, array_init
+from plotVisualization import plot_performance
 import matplotlib.pyplot as plt
 
 
@@ -20,5 +20,5 @@ def save_animation(performance, data, features, good_thresh, bad_thresh):
 
     anim = ArtistAnimation(figure, frames, interval= 100, blit=True, repeat_delay=1000)
     writergif = PillowWriter(fps=30)
-    anim.save('plot-animation.gif', writer=writergif)
+    anim.save('plot-animation-1.gif', writer=writergif)
     print('| DONE | Animation created and saved! ')
