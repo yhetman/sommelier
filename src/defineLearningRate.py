@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 import random
+import matplotlib.pyplot as plt
 
 from  dataVisualization import read_data
 from classAdaline import Adaline
@@ -45,7 +46,7 @@ def best_lr_Adaline():
 
 
 def main():
-    best_lr = best_lr_Adaline()
+    best_lr =  best_lr_Adaline()
     model = Adaline(lr=best_lr)
     stats = model.fit(X.values, Y, 3001, mode='batch', verbose=True)
     figure = plot_performance(stats, cleaned_data, ['alcohol', 'volatile acidity'], 6, 5, 3000, False)
