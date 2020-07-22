@@ -8,6 +8,7 @@ from classAdaline import Adaline
 from dataAnimation import save_animation
 from plotVisualization import plot_performance
 from normalization import normalization
+from Kfold import Kfold, visualize_folds
 
 
 
@@ -29,7 +30,7 @@ def best_lr_Adaline():
     best_lr = 0
     min_errors = 26
 
-    for n in range(100):
+    for n in range(50):
         lr = round(random.uniform(0.001, 0.05), 5)
         model = Adaline(lr)
         stats = model.fit(X.values, Y, 1000, 'batch', verbose=False)
@@ -56,16 +57,30 @@ def create_testing_data(data, size = 0.2):
 
 
 def main():
+    k = 9
+    sum_accuracy = 0
     best_lr =  best_lr_Adaline()
-    model = Adaline(lr=best_lr)
-    stats = model.fit(X.values, Y, 3001, mode='batch', verbose=True)
-    figure = plot_performance(stats, cleaned_data, ['alcohol', 'volatile acidity'], 6, 5, 3000, True, save_name = '../images/adaline-performance-plot,png')
+    folds = Kfold(k, cleaned_data, True)
 
-    _ , test_df = create_testing_data(cleaned_data, size = 0.7)
-    X_test = test_df.loc[:,['volatile acidity', 'alcohol']]
-    Y_test = test_df['highQ']
+    for i, folder in enumerate(folds):
+        X_train = folder[0][features]
+        Y_train = folder[0]['highQ']
 
-    model.evaluation(X_test.values, Y)
+        model = Adaline(best_lr)
+        stats = model.fit(X_train.values, Y_train, epochs=3001, mode='batch', verbose=False)
+        
+        X_test = folder[1][features]
+        Y_test = folder[1]['highQ']
+        accuracy = model.evaluation(X_test.values, Y_test)
+        sum_accuracy += accuracy
+    print('=================================')
+    print('Mean model accuracy: %.6f' %(sum_accuracy / len(folds)))
+    print('=================================')
+   # _ , test_df = create_testing_data(cleaned_data, size = 0.7)
+   # X_test = test_df.loc[:,['volatile acidity', 'alcohol']]
+   # Y_test = test_df['highQ']
+
+    #model.evaluation(X_test.values, Y)
 
 
 if __name__ == '__main__':
