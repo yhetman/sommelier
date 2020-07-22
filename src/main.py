@@ -8,9 +8,30 @@ from classAdaline import Adaline
 from dataAnimation import save_animation
 from plotVisualization import plot_performance
 from normalization import normalization
-import Kfold
-from defineLearningRate import create_training_data
+from Kfold import *
+from defineLearningRate import create_testing_data
 
 
-if __name__ == '__main__':
+data = read_data('../data/winequality-red.csv')
+
+data = data.assign(highQ = pd.Series(data['quality'] > 5))
+features = ['volatile acidity', 'alcohol', 'quality', 'highQ']
+cleaned_data = data[(data['quality'] > 6) | (data['quality'] < 5)][features]
+cleaned_data = cleaned_data.reset_index(drop=True)
+
+cleaned_data['alcohol'] = normalization(cleaned_data['alcohol'])
+cleaned_data['volatile acidity'] = normalization(cleaned_data['volatile acidity'])
+X = cleaned_data.loc[:,['volatile acidity', 'alcohol']]
+Y = cleaned_data['highQ']
+
+def main():
+    k = 9
+    i = 0
+    folds = Kfold(k, cleaned_data, True)
+    for test, valid in folds:
+        print('Lengths of training and validation sets for %d fold: ( %d, %d ) ' % (i, len(test), len(valid)))
+        i += 1
+
+
+if __name__ == "__main__":
     main()
