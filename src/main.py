@@ -8,7 +8,7 @@ from classAdaline import Adaline
 from dataAnimation import save_animation
 from plotVisualization import plot_performance
 from normalization import normalization
-from Kfold import *
+from Kfold import Kfold, visualize_folds
 from defineLearningRate import create_testing_data
 
 
@@ -31,6 +31,10 @@ def main():
     for test, valid in folds:
         print('Lengths of training and validation sets for %d fold: ( %d, %d ) ' % (i, len(test), len(valid)))
         i += 1
+
+    figure = visualize_folds(folds, features)
+    plt.show()
+    plt.savefig('../images/folds-plot.png')
 
 
 if __name__ == "__main__":

@@ -18,6 +18,19 @@ def shuffle_data(data):
         data = data.drop(data.index[i])
     return shuffled
 
+def visualize_folds(folds, features):
+    figure, axes = plt.subplots(ncols=len(folds), figsize=(13,5))
+    
+    for i, fold in enumerate(folds):
+        if i != 0:
+            axes[i].yaxis.set_visible(False)
+        axes[i].scatter(fold[0].loc[:, features[0]], fold[0].loc[:, features[1]], color = 'blue', label='training data')
+        axes[i].scatter(fold[1].loc[:, features[0]], fold[1].loc[:, features[1]], color = 'pink', label='test data')
+        axes[i].set_xlabel(features[0])
+        axes[i].set_ylabel(features[1])
+        axes[len(folds) - 1].legend(bbox_to_anchor=(1.05, 1), loc=2)
+    return figure
+
 
 def Kfold(k, data, shuffle = True):
     folds = []
