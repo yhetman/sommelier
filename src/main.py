@@ -25,14 +25,14 @@ X = cleaned_data.loc[:,['volatile acidity', 'alcohol']]
 Y = cleaned_data['highQ']
 
 def main():
-    k = 9
+    k = 5
     i = 0
     folds = Kfold(k, cleaned_data, True)
     for test, valid in folds:
         print('Lengths of training and validation sets for %d fold: ( %d, %d ) ' % (i, len(test), len(valid)))
         i += 1
 
-    figure = visualize_folds(folds, features)
+    figure = visualize_folds(folds, ['volatile acidity', 'alcohol'])
     plt.show()
     plt.savefig('../images/folds-plot.png')
 
