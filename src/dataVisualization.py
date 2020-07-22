@@ -19,7 +19,9 @@ def check_quality(df):
     b_wines = df[(df['quality'] < bad_treshold)]
     return g_wines, b_wines
 
-def plot_scatter_matrix(df_wine, good_wines, bad_wines, save_plot=False):
+def plot_scatter_matrix(df_wine, good, bad, save_plot=False):
+    good_wines = df_wine[(df_wine['quality'] > good)]
+    bad_wines = df_wine[(df_wine['quality'] < bad)]
     samples, feats = df_wine.shape
     print('samples and feats done')
     figure, axes = plt.subplots(nrows = feats, ncols = feats, figsize=(18,18))
@@ -38,7 +40,7 @@ def plot_scatter_matrix(df_wine, good_wines, bad_wines, save_plot=False):
             axes[j, i].scatter(bad_wines.iloc[:, i], bad_wines.iloc[:, j], c = 'red', marker = '.')
     print('markers created')
     if save_plot :
-        plt.savefig('../images/wine-quality-scatter-matrix.png')
+        plt.savefig('../images/pan-galactic.png')
     return figure
 
 
