@@ -48,7 +48,7 @@ def main():
     best_lr = best_lr_Adaline()
     model = Adaline(lr=best_lr)
     stats = model.fit(X.values, Y, 3001, mode='batch', verbose=True)
-    figure = plot_performance(stats, cleaned_data, ['alcohol', 'volatile acidity'], 6, 5, 3001, False)
+    figure = plot_performance(stats, cleaned_data, ['alcohol', 'volatile acidity'], 6, 5, 3000, False)
     plt.show(figure)
     plt.savefig('../images/adaline-performance-plot.png')
 
