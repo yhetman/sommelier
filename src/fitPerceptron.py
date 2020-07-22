@@ -21,7 +21,7 @@ def main():
     X, Y, samples = dataCleaning(data)
     model = Perceptron(lr = 0.005)
     training_statistics = model.fit(X.values, Y, epochs = 1000, verbose = True, seed = 29)
-   # plot_performance(model.performance, samples, ['volatile acidity', 'alcohol'], 7, 4, 300, True)
+   # plot_performance(model.performance, sampVes, ['volatile acidity', 'alcohol'], 7, 4, 300, True)
     save_animation(model.performance, samples, ['volatile acidity', 'alcohol'], 7 , 4 )
    # accuracy = model.evaluation(X.values, Y)
 

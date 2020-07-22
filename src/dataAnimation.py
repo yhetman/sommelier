@@ -20,5 +20,5 @@ def save_animation(performance, data, features, good_thresh, bad_thresh):
 
     anim = ArtistAnimation(figure, frames, interval= 100, blit=True, repeat_delay=1000)
     writergif = PillowWriter(fps=30)
-    anim.save('../animations/plot-animation.gif', writer=writergif)
+    anim.save('../animations/plot-animation-normed.gif', writer=writergif)
     print('| DONE | Animation created and saved! ')
