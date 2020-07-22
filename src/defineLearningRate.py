@@ -45,13 +45,29 @@ def best_lr_Adaline():
     return best_lr
 
 
+def create_testing_data(data, size = 0.2):
+     train = data.sample(frac = size)
+     test = data.drop(train.index)
+
+     print('Size of training set: %f' % (train.shape[0]))
+     print('Size of testing set: %f' % (test.shape[0]))
+     return (train, test)
+
+
+
 def main():
     best_lr =  best_lr_Adaline()
     model = Adaline(lr=best_lr)
     stats = model.fit(X.values, Y, 3001, mode='batch', verbose=True)
-    figure = plot_performance(stats, cleaned_data, ['alcohol', 'volatile acidity'], 6, 5, 3000, False)
-    plt.show(figure)
-    plt.savefig('../images/adaline-performance-plot.png')
+    figure = plot_performance(stats, cleaned_data, ['alcohol', 'volatile acidity'], 6, 5, 3000, True, save_name = '../images/adaline-performance-plot,png')
+
+    _ , test_df = create_testing_data(cleaned_data, size = 0.7)
+    X_test = test_df.loc[:,['volatile acidity', 'alcohol']]
+    Y_test = test_df['highQ']
+
+    model.evaluation(X_test.values, Y)
+
+
 
 if __name__ == "__main__":
     main()

@@ -29,7 +29,7 @@ class Adaline(Model):
         return (1 / (1 + exp(- output)))
 
 
-    def _evaluation(self, X, Y, epoch):
+    def _check_accuracy(self, X, Y, epoch):
         mistakes = 0
         for x, y in zip(X, Y):
             mistakes += int(self.prediction(x) != int(y))
@@ -49,7 +49,7 @@ class Adaline(Model):
             self.weights[0] += self.lr * sum(errors)
             self.weights[1:] += self.lr * np.dot(errors, X)
 
-        mistakes = self._evaluation(X, Y, epoch)
+        mistakes = self._check_accuracy(X, Y, epoch)
         if epoch % 10 == 0 and verbose:
             print('Epoch %d : %d errors' % (epoch, mistakes))
         self.performance.append((epoch, mistakes, self.weights[1:], self.weights[0]))
