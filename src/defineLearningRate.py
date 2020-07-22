@@ -68,9 +68,5 @@ def main():
     model.evaluation(X_test.values, Y)
 
 
-
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()
-
-
-
